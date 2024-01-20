@@ -60,5 +60,14 @@ jobs:
         dockerhub-user: ${{ secrets.REPO_USR }}
         dockerhub-password: ${{ secrets.REPO_PWD }}
         command: quickview, cves
+        only-severities: critical, high
+        sarif-file: scout-report.sarif
 
-   
+    - name: Upload_Artifact
+      uses: actions/upload-artifact@v3
+      if: always()
+      with:
+        name: docker-scout-findings
+        path: scout-report.json
+  
+     
